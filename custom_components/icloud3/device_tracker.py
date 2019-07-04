@@ -1018,7 +1018,7 @@ class Icloud(DeviceScanner):
 
                     return True
 
-            if self.api.requires_2fa:
+            if hasattr(self.api, "requires_2sa") and self.api.requires_2sa or hasattr(self.api, "requires_2fa") and self.api.requires_2fa:
                 from pyicloud.exceptions import PyiCloudException
                 try:
                     if self.trusted_device is None:
@@ -1043,7 +1043,7 @@ class Icloud(DeviceScanner):
                         self.api.devices)
                     self._LOGGER_info_msg(log_msg)
 
-                    if self.api.requires_2fa:
+                    if hasattr(self.api, "requires_2sa") and self.api.requires_2sa or hasattr(self.api, "requires_2fa") and self.api.requires_2fa:
                         raise Exception('Unknown failure')
 
                     self.trusted_device    = None
